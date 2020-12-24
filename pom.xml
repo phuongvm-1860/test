@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.example</groupId>
+    <artifactId>Basic-automation</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+
+        <!--Dependency Versions -->
+        <selenium.version>3.141.59</selenium.version>
+        <assertj-core.version>3.11.1</assertj-core.version>
+        <junit.version>4.12</junit.version>
+        <cucumber.version>1.2.5</cucumber.version>
+        <cucumber-jvm.version>4.2.6</cucumber-jvm.version>
+        <gherkin.version>2.12.2</gherkin.version>
+        <webdrivermanager.version>3.4.0</webdrivermanager.version>
+        <http-core.version>4.4.10</http-core.version>
+        <http-components.version>4.5.8</http-components.version>
+        <apache-poi.version>3.17</apache-poi.version>
+        <common-csv.version>1.5</common-csv.version>
+        <cucumber-picocontainer>1.2.5</cucumber-picocontainer>
+        <mysql-connector-java>8.0.18</mysql-connector-java>
+
+        <!--Plugin Versions -->
+        <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
+        <!--<maven-failsafe-plugin.version>2.22.1</maven-failsafe-plugin.version>-->
+        <maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
+        <maven-cucumber-reporting>3.8.0</maven-cucumber-reporting>
+        <log4j.version>1.2.17</log4j.version>
+
+        <!--Configuration Properties -->
+        <threads>1</threads>
+        <headless>false</headless>
+        <testFailureIgnore>true</testFailureIgnore>
+    </properties>
+
+    <!--Dependencies -->
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-jvm</artifactId>
+            <version>${cucumber-jvm.version}</version>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-junit</artifactId>
+            <version>${cucumber.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>gherkin</artifactId>
+            <version>${gherkin.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.masterthought</groupId>
+            <artifactId>cucumber-reporting</artifactId>
+            <version>4.6.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-remote-driver</artifactId>
+            <version>${selenium.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>${selenium.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>${assertj-core.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>${webdrivermanager.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>${http-components.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>${http-core.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>${apache-poi.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-csv</artifactId>
+            <version>${common-csv.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-picocontainer</artifactId>
+            <version>${cucumber-picocontainer}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql-connector-java}</version>
+        </dependency>
+    </dependencies>
+
+    <!--Define profiles for project -->
+    <profiles>
+        <profile>
+            <id>selenium-tests</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <!--Maven Compiler Plugin -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <configuration>
+                            <source>${java.version}</source>
+                            <target>${java.version}</target>
+                        </configuration>
+                        <version>${maven-compiler-plugin.version}</version>
+                    </plugin>
+
+                    <!--Maven Failsafe Plugin
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <version>${maven-failsafe-plugin.version}</version>
+                        <configuration>
+                            <parallel>methods</parallel>
+                            <threadCount>${threads}</threadCount>
+                            <systemPropertyVariables>
+                                <headless>${headless}</headless>
+                            </systemPropertyVariables>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>integration-test</goal>
+                                    &lt;!&ndash;This goal makes the build fail if you have test failures &ndash;&gt;
+                                    &lt;!&ndash;goal>verify</goal&ndash;&gt;
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>-->
+
+                    <!--Maven Surefire Plugin -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>${maven-surefire-plugin.version}</version>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <headless>${headless}</headless>
+                            </systemPropertyVariables>
+                            <testFailureIgnore>${testFailureIgnore}</testFailureIgnore>
+                        </configuration>
+                    </plugin>
+
+                    <!--Maven Cucumber Reporting Plugin -->
+                    <plugin>
+                        <groupId>net.masterthought</groupId>
+                        <artifactId>maven-cucumber-reporting</artifactId>
+                        <version>${maven-cucumber-reporting}</version>
+                        <executions>
+                            <!--<execution>
+                                <id>verify-execution</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>generate</goal>
+                                </goals>
+                                <configuration>
+                                    <projectName>basic-automation-test</projectName>  &lt;!&ndash; Replace with project name &ndash;&gt;
+                                    <outputDirectory>target/cucumber-reports/advanced-reports</outputDirectory>
+                                    <cucumberOutput>target/cucumber-reports/CucumberTestReport.json</cucumberOutput>
+                                    <buildNumber>1</buildNumber>
+                                    <parallelTesting>false</parallelTesting>
+                                </configuration>
+                            </execution>-->
+
+                            <!--Phase generate report -->
+                            <execution>
+                                <id>test-execution</id>
+                                <phase>test</phase>
+                                <goals>
+                                    <goal>generate</goal>
+                                </goals>
+                                <configuration>
+                                    <projectName>Basic-automation-test</projectName>  <!-- Replace with project name -->
+                                    <outputDirectory>target/cucumber-reports/advanced-reports</outputDirectory>
+                                    <cucumberOutput>target/cucumber-reports/CucumberTestReport.json</cucumberOutput>
+                                    <buildNumber>1</buildNumber>
+                                    <parallelTesting>false</parallelTesting>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+</project>
